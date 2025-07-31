@@ -51,7 +51,7 @@
     </style>
     @if ($modelId)
         <div class="modal-header">
-            <h5 class="modal-title">Gestionar Reporte con consecutivo <b>{{ $consecutivo }}</b></h5>
+            <h5 class="modal-title">Reporte: <b>{{ $consecutivo }}</b></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -94,15 +94,16 @@
                                 <a href="#" class="btn btn-lg btn-dark" data-toggle="modal"
                                     data-target="#timeLineModal">TimeLine</a>
                                 <div class="modal fade" id="timeLineModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="comentarioModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="text-muted font-weight-bold">Historial del Reporte
-                                                        </h5>
-                                                        <div class="timeline">
+                                aria-labelledby="comentarioModalLabel" aria-hidden="true" 
+                                data-keyboard="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="text-muted font-weight-bold">Historial del Reporte</h5>
+                                                    <div class="timeline-horizontal">
+                                                        @if ($historial)
                                                             @foreach ($historial as $evento)
                                                                 <div class="timeline-item">
                                                                     <div class="timeline-icon">
@@ -110,21 +111,21 @@
                                                                     </div>
                                                                     <div
                                                                         class="timeline-content {{ $loop->iteration % 2 == 0 ? 'right' : '' }}">
-                                                                        <h2>{{ $evento->fecha }}</h2>
+                                                                        <h2>{{ $evento->created_at }}</h2>
                                                                         <!-- Fecha del evento -->
-                                                                        <p>{{ $evento->descripcion }}</p>
+                                                                        <p>{{ $evento->detalle }}</p>
                                                                         <!-- Descripción del evento -->
                                                                     </div>
                                                                 </div>
                                                             @endforeach
-                                                        </div>
-
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
                             </div>
                         </div>
@@ -240,7 +241,8 @@
                             <a href="#" class="btn btn-lg btn-dark" data-toggle="modal"
                                 data-target="#timeLineModal">TimeLine</a>
                             <div class="modal fade" id="timeLineModal" tabindex="-1" role="dialog"
-                                aria-labelledby="comentarioModalLabel" aria-hidden="true">
+                                aria-labelledby="comentarioModalLabel" aria-hidden="true" 
+                                data-keyboard="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
@@ -248,15 +250,22 @@
                                                 <div class="card-body">
                                                     <h5 class="text-muted font-weight-bold">Historial del Reporte</h5>
                                                     <div class="timeline-horizontal">
-                                                        @foreach ($historial as $evento)
-                                                            <div class="timeline-item">
-                                                                <div class="timeline-icon"></div>
-                                                                <div class="timeline-content">
-                                                                    <h2>{{ $evento->created_at->format('Y-m-d') }}</h2>
-                                                                    <p>{{ $evento->detalle }}</p>
+                                                        @if ($historial)
+                                                            @foreach ($historial as $evento)
+                                                                <div class="timeline-item">
+                                                                    <div class="timeline-icon">
+                                                                        <!-- Icono o indicador por año/evento, puede ser un círculo o cualquier forma definida en CSS -->
+                                                                    </div>
+                                                                    <div
+                                                                        class="timeline-content {{ $loop->iteration % 2 == 0 ? 'right' : '' }}">
+                                                                        <h2>{{ $evento->created_at }}</h2>
+                                                                        <!-- Fecha del evento -->
+                                                                        <p>{{ $evento->detalle }}</p>
+                                                                        <!-- Descripción del evento -->
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

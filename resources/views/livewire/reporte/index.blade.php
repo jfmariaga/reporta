@@ -149,21 +149,21 @@
                         }
 
                         body.append(`<tr>
-            <td class="text-center">${new Date(item.created_at).toLocaleDateString()}</td>
-            <td class="text-center">${item.ReportadoPor}</td>
-            <td class="text-center">${item.impacto_names}</td>
-            <td class="text-center">${item.area}</td>
-            <td class="text-center">${item.zona}</td>
-            <td class="text-center"><span class="badge ${prioridadBadge}">${item.prioridad}</span></td>
-            <td class="text-center"><span class="badge ${estadoBadge}">${estadoText}</span></td>
-            <td class="text-center">${item.consecutivo}</td>
-            <td class="text-center">
-                <a href="#" class="btn btn-xs btn-default text-primary mx-1 shadow" onclick="editar(${item.id})">
-                    <i class="far fa-eye"></i>
-                </a>
-                ${(item.estado == 1 && item.userRole == 'JefeArea') ? `<a href="#" class="btn btn-xs btn-default text-danger mx-1 shadow" onclick="rechazar(${item.id})"><i class="fas fa-times-circle"></i></a>` : ''}
-            </td>
-        </tr>`);
+                                        <td class="text-center">${new Date(item.created_at).toLocaleDateString()}</td>
+                                        <td class="text-center">${item.ReportadoPor}</td>
+                                        <td class="text-center">${item.impacto_names}</td>
+                                        <td class="text-center">${item.area}</td>
+                                        <td class="text-center">${item.zona}</td>
+                                        <td class="text-center"><span class="badge ${prioridadBadge}">${item.prioridad}</span></td>
+                                        <td class="text-center"><span class="badge ${estadoBadge}">${estadoText}</span></td>
+                                        <td class="text-center">${item.consecutivo}</td>
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-xs btn-default text-primary mx-1 shadow" onclick="editar(${item.id})">
+                                                <i class="far fa-eye"></i>
+                                            </a>
+                                            ${(item.estado == 1 && item.userRole == 'JefeArea') ? `<a href="#" class="btn btn-xs btn-default text-danger mx-1 shadow" onclick="rechazar(${item.id})"><i class="fas fa-times-circle"></i></a>` : ''}
+                                        </td>
+                                    </tr>`);
                     }
                     resolve(body);
                 });
@@ -191,6 +191,16 @@
                     id: id
                 });
             }
+        </script>
+        <script>
+            // Cada vez que se cierra un modal
+            $(document).on('hidden.bs.modal', function() {
+                if ($('.modal.show').length > 0) {
+                    // Aún hay otros modales abiertos, mantener clase modal-open
+                    $('body').addClass('modal-open');
+                }
+                console.log('si entro al modal');
+            });
         </script>
     @endpush
 </div>

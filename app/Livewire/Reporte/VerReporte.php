@@ -25,7 +25,7 @@ class VerReporte extends Component
     use WithFileUploads;
 
     public $modelId, $class, $check, $area, $cargo, $zona, $zonas = null, $nombre, $impacto, $descripcion, $orden, $prioridad, $img, $img2, $img3, $identificar, $responsable, $consecutivo, $userName, $userEmail, $estado, $respuesta, $loginRepor, $comentario;
-    public $item, $seguimiento, $reporEmail;
+    public $item, $seguimiento, $reporEmail, $historial;
     protected $rules = [
         'area' => 'required',
         'cargo' => 'required',
@@ -57,6 +57,10 @@ class VerReporte extends Component
         $this->comentario = $model->comentario;
         $this->seguimiento = $model->seguimiento;
         $this->reporEmail = $model->email;
+
+        if ($this->modelId) {
+            $this->historial = HistorialReporte::where('reporte_id', $this->modelId)->orderBy('created_at', 'Asc')->get();
+        }
     }
 
     #[On('render')]
@@ -73,9 +77,7 @@ class VerReporte extends Component
         $cargos = Cargo::all();
         $impactos = Impacto::all();
 
-        $historial = HistorialReporte::where('reporte_id', $this->modelId)->orderBy('created_at', 'Asc')->get();
-        // dd($historial);
-        return view('livewire.reporte.ver-reporte', compact('areasUnicas', 'cargos', 'areas', 'impactos', 'historial'));
+        return view('livewire.reporte.ver-reporte', compact('areasUnicas', 'cargos', 'areas', 'impactos'));
     }
 
 

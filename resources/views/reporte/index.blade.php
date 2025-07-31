@@ -32,13 +32,13 @@
     <style type="text/css">
         {{-- You can add AdminLTE customizations here --}}
         /*
-                                                    .card-header {
-                                                        border-bottom: none;
-                                                    }
-                                                    .card-title {
-                                                        font-weight: 600;
-                                                    }
-                                                    */
+                                                            .card-header {
+                                                                border-bottom: none;
+                                                            }
+                                                            .card-title {
+                                                                font-weight: 600;
+                                                            }
+                                                            */
     </style>
     <style>
         .select2-container {
@@ -149,7 +149,6 @@
                     timer: 1500
                 })
 
-                
             } catch (error) {
                 console.log('Error alert', error);
             }
