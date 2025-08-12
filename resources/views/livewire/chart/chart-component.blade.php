@@ -1,52 +1,89 @@
-<div>
-    <style>
-        #chartContainer {
-            width: 100%;
-            height: 400px;
-            /* Puedes ajustar la altura según tus necesidades */
-            position: relative;
-        }
-    </style>
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Grafica por Areas</h3>
-            <div class="card-tools">
-                <!-- Collapse Button -->
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-eye"></i></button>
+<div class="container-fluid">
+    <div class="row">
+        {{-- Gráfica por Área --}}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Reportes por Área</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartAreas"></div>
+                </div>
             </div>
-            <!-- /.card-tools -->
-        </div>
-        <!-- /.card-header -->
-        <div id="chartContainer" class="card-body">
-            <canvas id="myChart" width="400" height="200"></canvas>
         </div>
 
+        {{-- Gráfica por Estado --}}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Reportes por Estado</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartEstados"></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Gráfica por Impactos --}}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Reportes por Sistemas de Gestión</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartImpactos"></div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        {{-- Treemap Zonas con mayor impacto --}}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Zonas con Mayor Impacto</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartZonas"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.card -->
+
     <script>
-        document.addEventListener('livewire:init', function() {
+        document.addEventListener('livewire:init', function () {
+            // Gráfica por Área
+            new ApexCharts(document.querySelector("#chartAreas"), {
+                chart: { type: 'bar', height: 350 },
+                series: [{ name: 'Reportes', data: @json($seriesAreas) }],
+                xaxis: { categories: @json($labelsAreas) },
+                colors: ['#4e73df']
+            }).render();
 
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: @json($chartData),
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+            // Gráfica por Impactos
+            new ApexCharts(document.querySelector("#chartImpactos"), {
+                chart: { type: 'donut', height: 350 },
+                series: @json($seriesImpactos),
+                labels: @json($labelsImpactos),
+                legend: { position: 'right' },
+                dataLabels: { enabled: true, formatter: val => val.toFixed(1) + "%" }
+            }).render();
 
-            // Livewire.on('chartDataUpdated', () => {
-            //     chart.data = @json($chartData);
-            //     chart.update();
-            //     console.log('grafica actualizada');
-            // });
+            // Gráfica por Estado
+            new ApexCharts(document.querySelector("#chartEstados"), {
+                chart: { type: 'bar', height: 350 },
+                series: [{ name: 'Reportes', data: @json($seriesEstados) }],
+                xaxis: { categories: @json($labelsEstados) },
+                colors: ['#1cc88a']
+            }).render();
+
+            // Treemap Zonas con mayor impacto
+            new ApexCharts(document.querySelector("#chartZonas"), {
+                chart: { type: 'treemap', height: 350 },
+                series: @json($seriesZonasImpacto),
+                colors: ['#4e73df', '#36b9cc', '#e74a3b', '#4e73df', '#1cc88a']
+            }).render();
         });
     </script>
-
 </div>

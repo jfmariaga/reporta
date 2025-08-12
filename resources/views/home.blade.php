@@ -7,10 +7,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6 col-lg-6 mt-2">
-                @livewire('card.index')
-        </div>
-        <div class="col-md-6 col-lg-6 mt-2">
+        <div class="col-md-12 col-lg-12 mt-2">
                 @livewire('chart.chart-component')
         </div>
     </div>
@@ -22,7 +19,8 @@
 @stop
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
 @stop
