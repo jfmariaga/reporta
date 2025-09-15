@@ -15,6 +15,10 @@ class ChartComponent extends Component
     public $seriesEstados = [];
     public $seriesZonasImpacto = [];
 
+    // Nueva propiedad para la gráfica de barras apiladas
+    public $seriesAreasEstados = [];
+    public $labelsAreasEstados = [];
+
     public function mount()
     {
         // ====== Datos por Área ======
@@ -66,6 +70,33 @@ class ChartComponent extends Component
 
         $this->labelsEstados = $estados->pluck('estado_text')->toArray();
         $this->seriesEstados = $estados->pluck('total')->toArray();
+
+        // ====== Datos para Barras Apiladas (Áreas y Estados) ======
+        $datos = DB::table('reportes')
+            ->select('area', 'estado', DB::raw('count(*) as total'))
+            ->groupBy('area', 'estado')
+            ->get();
+
+        $areasUnicas = $datos->pluck('area')->unique()->values()->toArray();
+        $this->labelsAreasEstados = $areasUnicas; // ahora es su propia variable
+
+        $series = [];
+        foreach ($estadoMap as $id => $nombre) {
+            $dataEstado = [];
+            foreach ($areasUnicas as $area) {
+                $count = $datos
+                    ->where('area', $area)
+                    ->where('estado', $id)
+                    ->first()
+                    ->total ?? 0;
+                $dataEstado[] = $count;
+            }
+            $series[] = [
+                'name' => $nombre,
+                'data' => $dataEstado
+            ];
+        }
+        $this->seriesAreasEstados = $series;
 
         // ====== Zonas con mayor impacto (Treemap) ======
         $zonas = DB::table('reportes')
