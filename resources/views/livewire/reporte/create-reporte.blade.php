@@ -78,7 +78,7 @@
                                 <option value="supervisor5.produccion@panalsas.com">Juan Esteban Alzate</option>
                                 <option value="supervisor6.produccion@panalsas.com">Carlos Andres Ocampo</option>
                                 <option value="supervisor7.produccion@panalsas.com">Jhony Cuervo</option>
-                                <option value="supervisor8.produccion@panalsas.com">Alejandro Perez Muñoz</option>
+                                <option value="supervisor8.produccion@panalsas.com">Julian Arango</option>
                                 <option value="nelson.cardona@levapan.com">Nelson Cardona</option>
                                 <option value="diego.duque@levapan.com">Diego Duque</option>
                                 <option value="luis.mazo@levapan.com">Luis Carlos Mazo</option>
