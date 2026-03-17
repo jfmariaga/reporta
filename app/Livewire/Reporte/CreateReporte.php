@@ -7,6 +7,7 @@ use App\Mail\Reporte as MailReporte;
 use App\Mail\ReporteImpacto;
 use App\Models\Area;
 use App\Models\Cargo;
+use App\Models\EquipoApoyo;
 use App\Models\Gestion;
 use App\Models\HistorialReporte;
 use App\Models\Impacto;
@@ -78,11 +79,47 @@ class CreateReporte extends Component
 
         $this->consecutivo = 'REG' . date('m') . date('d') . Str::random(3);
 
-        $resArea = Gestion::where('area', $this->area)->get();
+        // $resArea = Gestion::where('area', $this->area)->get();
 
-        foreach ($resArea as $item) {
-            $this->responsable = $item->user_id;
+        // foreach ($resArea as $item) {
+        //     $this->responsable = $item->user_id;
+        // }
+
+        // Obtener responsable principal del área
+        $resArea = Gestion::where('area', $this->area)->first();
+        // dd($resArea);
+        $responsablePrincipal = $resArea?->user_id;
+
+        // Buscar equipo de apoyo del responsable
+        $equipo = EquipoApoyo::where('responsable_id', $responsablePrincipal)->get();
+
+        if ($equipo->count() > 0) {
+
+            // Obtener IDs de los apoyos
+            $idsApoyo = $equipo->pluck('apoyo_id');
+
+            // Buscar quién tiene menos reportes activos
+            $responsableAsignado = Reporte::selectRaw('responsable_id, COUNT(*) as total')
+                ->whereIn('responsable_id', $idsApoyo)
+                ->where('estado', '!=', 3) 
+                ->groupBy('responsable_id')
+                ->orderBy('total', 'asc')
+                ->first();
+
+            if ($responsableAsignado) {
+                $this->responsable = $responsableAsignado->responsable_id;
+            } else {
+                // Si ninguno tiene reportes aún, asignar al primero
+                $this->responsable = $idsApoyo->first();
+            }
+        } else {
+
+            // No tiene equipo → se asigna al jefe directamente
+            $this->responsable = $responsablePrincipal;
         }
+
+        dd($this->responsable);
+
 
         $datos = [
             'area' => $this->area,
@@ -126,7 +163,7 @@ class CreateReporte extends Component
                 Mail::to($this->userEmail)->queue(new ReporteImpacto($datos));
             }
         }
-        $reportador = User::where('name','Generico')->get();
+        $reportador = User::where('name', 'Generico')->get();
         foreach ($reportador as $key) {
             $idRepor = $key->id;
         }

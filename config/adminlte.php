@@ -329,7 +329,7 @@ return [
             'can' => 'panal',
         ],
         [
-            'text' => 'Jefes de areas',
+            'text' => 'Responsable de gestión',
             'route' => 'jefes',
             'icon' => 'fas fa-sitemap',
             'can' => 'panal',

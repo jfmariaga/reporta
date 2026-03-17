@@ -24,14 +24,22 @@ class Index extends Component
             return $query->where('area', 'LIKE', '%' . $this->search . '%');
         })
             ->paginate(10);
-        return view('livewire.gestion.index',compact('areas'));
+        return view('livewire.gestion.index', compact('areas'));
     }
+
     public function selecItem($item, $action)
     {
-        $this->item = $item;
-
         if ($action == 'editar') {
-            $this->dispatch('getModelId', $this->item)->to(GestionEdit::class);
+            $this->dispatch('getModelId', $item)->to(GestionEdit::class);
+        }
+
+        if ($action == 'equipo') {
+
+            $gestion = Gestion::find($item);
+
+            if ($gestion) {
+                $this->dispatch('cargarResponsable', $gestion->user_id)->to(EquipoApoyoManager::class);
+            }
         }
     }
 }

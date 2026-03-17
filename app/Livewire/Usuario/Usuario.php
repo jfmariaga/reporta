@@ -11,7 +11,7 @@ class Usuario extends Component
     protected $listeners=['render'];
     public function render()
     {
-        $usuarios = User::role(['admin','JefeArea','JefeImpacto'])
+        $usuarios = User::role(['admin','ResponsableGestion','JefeImpacto'])
         ->get();
         return view('livewire.usuario.usuario',compact('usuarios'));
     }

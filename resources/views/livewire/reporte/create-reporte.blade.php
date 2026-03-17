@@ -72,16 +72,21 @@
                                 <option value="" selected>Seleccionar...</option>
                                 <option value="supervisor.almacen@panalsas.com">Wilber Ochoa</option>
                                 <option value="supervisor.ambiental@panalsas.com">Robinson Cardona Castrillon</option>
-                                <option value="supervisor2.produccion@panalsas.com">Carlos Echeverri</option>
-                                <option value="supervisor3.produccion@panalsas.com">Edgar Santiago Lopez Carmona</option>
-                                <option value="supervisor4.produccion@panalsas.com">Jesus Ernesto Hoyos</option>
-                                <option value="supervisor5.produccion@panalsas.com">Juan Esteban Alzate</option>
-                                <option value="supervisor6.produccion@panalsas.com">Carlos Andres Ocampo</option>
-                                <option value="supervisor7.produccion@panalsas.com">Jhony Cuervo</option>
-                                <option value="supervisor8.produccion@panalsas.com">Julian Arango</option>
+                                <option value="supervisor2.planta@panalsas.com">Carlos Echeverri</option>
+                                <option value="supervisor3.planta@panalsas.com">Edgar Santiago Lopez Carmona</option>
+                                <option value="supervisor4.planta@panalsas.com">Jesus Ernesto Hoyos</option>
+                                <option value="supervisor5.planta@panalsas.com">Juan Esteban Alzate</option>
+                                <option value="supervisor6.planta@panalsas.com">Carlos Andres Ocampo</option>
+                                <option value="supervisor7.planta@panalsas.com">Jhony Cuervo</option>
+                                <option value="supervisor8.planta@panalsas.com">Julian Arango</option>j
                                 <option value="nelson.cardona@levapan.com">Nelson Cardona</option>
                                 <option value="diego.duque@levapan.com">Diego Duque</option>
                                 <option value="luis.mazo@levapan.com">Luis Carlos Mazo</option>
+                                <option value="analista.ambiental@panalsas.com">Sergio Ocampo Narváez</option>
+                                <option value="coordinador.microbiologia@panalsas.com">Claudia Sepulveda</option>
+                                <option value="ingeniero.mantenimiento@panalsas.com">Carlos Mauricio Garcia</option>
+                                <option value="supervisor.mantenimiento@panalsas.com">Edwin Cano</option>
+                                <option value="analista.inventarios@panalsas.com">Miguel Angel Capachero</option>
                             </select>
                             @error('reporEmail')
                                 <span class="input_error">{{ $message }}</span>

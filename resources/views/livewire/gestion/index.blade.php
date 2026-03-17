@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Responsable</th>
                     <th colspan="2">Accion</th>
                 </tr>
             </thead>
@@ -21,9 +22,21 @@
                             <td>vacio</td>
                         @endif
                         <td class="text-center">
+
+                            <!-- Botón editar gestión -->
                             <a href="#" class="btn btn-sm btn-secondary"
                                 wire:click="selecItem({{ $item->id }},'editar')" data-toggle="modal"
-                                data-target="#editGestion"><i class="far fa-edit"></i></a>
+                                data-target="#editGestion">
+                                <i class="far fa-edit"></i>
+                            </a>
+
+                            <!-- Botón grupo de apoyo -->
+                            <a href="#" class="btn btn-sm btn-info"
+                                wire:click="selecItem({{ $item->id }},'equipo')" data-toggle="modal"
+                                data-target="#modalEquipo">
+                                <i class="fas fa-users"></i>
+                            </a>
+
                         </td>
                     </tr>
                 @endforeach
@@ -41,6 +54,6 @@
     @push('modals')
         @include('modal.newGestion')
         @include('modal.editGestion')
+        @include('modal.grupoApoyo')
     @endpush
 </div>
-
