@@ -118,9 +118,6 @@ class CreateReporte extends Component
             $this->responsable = $responsablePrincipal;
         }
 
-        dd($this->responsable);
-
-
         $datos = [
             'area' => $this->area,
             'cargo_id' => $this->cargo,
